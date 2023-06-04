@@ -3,6 +3,8 @@ import 'package:livraria_da_domitilda/views/components/constants.dart';
 import 'package:livraria_da_domitilda/views/logon_page.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
+import '../../modelviews/user_manager.dart';
+
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
 
@@ -17,9 +19,10 @@ final _formKey = GlobalKey<FormState>();
 bool _validEmail = false;
 bool _validPass = false;
 bool _isObscure = true;
+bool _isLoading = false;
 
 class _LoginFormState extends State<LoginForm> {
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   void login() {}
 
@@ -28,7 +31,7 @@ class _LoginFormState extends State<LoginForm> {
     Size size = MediaQuery.of(context).size;
 
     return Form(
-        key: formKey,
+        key: _formKey,
         child: Column(
           children: [
             SizedBox(
@@ -95,7 +98,18 @@ class _LoginFormState extends State<LoginForm> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: defaultpd * 2),
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () async {
+                      if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          _isLoading = true;
+                        });
+                        await loginUser(
+                            _controllerEmail.text, _controllerPassword.text);
+                        setState(() {
+                          _isLoading = false;
+                        });
+                      }
+                    },
                     child: Container(
                       width: double.infinity,
                       height: 60,
