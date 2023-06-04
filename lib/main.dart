@@ -13,7 +13,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(GetMaterialApp(
-    initialRoute: '/home',
+    initialRoute: '/login',
     getPages: [
       GetPage(name: '/login', page: () => LoginPage()),
       GetPage(name: '/logon', page: () => LogOnPage()),

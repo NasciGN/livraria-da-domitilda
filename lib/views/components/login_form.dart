@@ -1,4 +1,7 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:livraria_da_domitilda/modelviews/utils/snack_bar.dart';
 import 'package:livraria_da_domitilda/views/components/constants.dart';
 import 'package:livraria_da_domitilda/views/logon_page.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -103,8 +106,10 @@ class _LoginFormState extends State<LoginForm> {
                         setState(() {
                           _isLoading = true;
                         });
-                        await loginUser(
-                            _controllerEmail.text, _controllerPassword.text);
+                        await loginUser(context, _controllerEmail.text,
+                            _controllerPassword.text);
+
+                        Get.toNamed('/home');
                         setState(() {
                           _isLoading = false;
                         });

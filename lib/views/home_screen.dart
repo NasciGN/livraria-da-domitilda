@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../modelviews/utils/snack_bar.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -9,7 +11,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance?.addPostFrameCallback((_) {});
+  }
+
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(body: Center());
   }
 }

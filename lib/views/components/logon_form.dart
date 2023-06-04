@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:livraria_da_domitilda/views/components/constants.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
@@ -96,6 +97,7 @@ class _LogOnFormState extends State<LogOnForm> {
                         });
                         await createUser(
                             _controllerEmail.text, _controllerPassword.text);
+                        Get.toNamed('/login');
                         setState(() {
                           _isLoading = false;
                         });
