@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "819901143033",
+    "project_id": "livraria-e1c4b",
+    "storage_bucket": "livraria-e1c4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819901143033:android:e9f66d8cd07b1e0a80cf28",
+        "android_client_info": {
+          "package_name": "br.com.receitasvovo.livraria_da_domitilda"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1V5qwLVaQnniTsboNxJ5vqoS6mZN03Qk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819901143033:android:7278f8c15073b43d80cf28",
+        "android_client_info": {
+          "package_name": "com.example.livraria"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1V5qwLVaQnniTsboNxJ5vqoS6mZN03Qk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
