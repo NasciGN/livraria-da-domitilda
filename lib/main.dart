@@ -15,10 +15,10 @@ void main() async {
   runApp(GetMaterialApp(
     initialRoute: '/login',
     getPages: [
-      GetPage(name: '/login', page: () => LoginPage()),
-      GetPage(name: '/logon', page: () => LogOnPage()),
-      GetPage(name: '/home', page: () => HomeScreen()),
-      GetPage(name: '/favorite', page: () => FavoriteBooks()),
+      GetPage(name: '/login', page: () => const LoginPage()),
+      GetPage(name: '/logon', page: () => const LogOnPage()),
+      GetPage(name: '/home', page: () => const HomeScreen()),
+      GetPage(name: '/favorite', page: () => const FavoriteBooks()),
     ],
   ));
 }
