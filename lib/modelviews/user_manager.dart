@@ -30,19 +30,20 @@ Future<void> loginUser(context, email, pass) async {
   try {
     final credential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: pass);
+    showSnackBar(context, 'Oh Yeah!', "You are logged in, let's go");
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
-      showSnackBar(context, 'Wait, who are you?!',
+      showBadSnackBar(context, 'Wait, who are you?!',
           'This user was not found in our database...');
       //print('No user found for that email.');
       throw Exception('No user found for that email.');
     } else if (e.code == 'auth/wrong-password') {
-      showSnackBar(context, 'Oh no, !',
+      showBadSnackBar(context, 'Oh no, !',
           'The password entered seems incorrect, try to recover it through the button "Forgot your password?"');
       //print('Wrong password provided for that user.');
       throw Exception('Wrong password provided for that user.');
     } else {
-      showSnackBar(context, 'Ops...',
+      showBadSnackBar(context, 'Ops...',
           'Something is not right, please contact the administrator.');
       throw Exception('Error occurred: ${e.message}');
     }
