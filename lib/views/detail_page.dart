@@ -5,6 +5,7 @@ import 'package:livraria_da_domitilda/views/components/bottom_bar.dart';
 import 'package:livraria_da_domitilda/views/components/constants.dart';
 
 import '../models/book.dart';
+import '../modelviews/user_manager.dart';
 
 class DetailPage extends StatefulWidget {
   Books detailBook;
@@ -59,7 +60,7 @@ class _DetailPageState extends State<DetailPage> {
                   if (_isFavorite) {
                     showSnackBar(context, 'Go to read!',
                         'This book has been added to your library.');
-                    saveFavoriteBook('1');
+                    saveFavoriteBook('${widget.detailBook.id}');
                   }
                 },
                 child: _isFavorite

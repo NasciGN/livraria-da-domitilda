@@ -2,6 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:livraria_da_domitilda/modelviews/utils/snack_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+final db = FirebaseFirestore.instance;
+FirebaseAuth auth = FirebaseAuth.instance;
+final User? currentUser = auth.currentUser;
+String? userId = currentUser?.uid;
 
 Future<void> createUser(email, pass) async {
   try {
@@ -10,6 +16,8 @@ Future<void> createUser(email, pass) async {
       email: email,
       password: pass,
     );
+    String userId = credential.user?.uid ?? '';
+    saveUserRegister(userId, email);
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
       SnackBar(
@@ -23,6 +31,24 @@ Future<void> createUser(email, pass) async {
     }
   } catch (e) {
     print(e);
+  }
+}
+
+Future<void> saveUserRegister(
+  final userId,
+  userEmail,
+) async {
+  final registerUser = <String, String>{
+    "createDt": "${FieldValue.serverTimestamp()}",
+    "userID": "$userId",
+    "userEmail": "$userEmail",
+  };
+
+  try {
+    await db.collection("users").add(registerUser);
+    print('--------- USUARIO CADASTRADO NO FIRESTORE');
+  } catch (e) {
+    print('Erro ao cadastrar o usuário: $e');
   }
 }
 

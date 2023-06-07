@@ -3,6 +3,7 @@ import 'package:livraria_da_domitilda/models/book.dart';
 import 'package:http/http.dart' as http;
 
 String url = 'https://www.googleapis.com/books/v1/volumes?q=';
+String idurl = 'https://www.googleapis.com/books/v1/volumes/';
 String keyPart = '&maxResults=40&:keyes&key=';
 String keyApi = 'AIzaSyD6joyGa7KCGsGl1uUWcqJi20M6uRnQBq0';
 
@@ -22,6 +23,18 @@ Future<List<Books>> fetchSearchBooks(String search) async {
   }
   print("Debug Google Docs List: $searchResult");
   return searchResult;
+}
+
+Future<Books?> fetchBook(String idBook) async {
+  Books? thisBook;
+  final http.Response response =
+      await http.get(Uri.parse('$idurl$idBook?key=$keyApi'));
+
+  if (response.statusCode == 200) {
+    var jsonBook = jsonDecode(response.body);
+    thisBook = jsonBookDecode(jsonBook);
+  }
+  return thisBook;
 }
 
 Books jsonBookDecode(final jsonBook) {

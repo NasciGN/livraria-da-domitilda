@@ -55,7 +55,7 @@ class SwapPage extends StatefulWidget {
 class _SwapPageState extends State<SwapPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Text('SwapPage'),
       ),

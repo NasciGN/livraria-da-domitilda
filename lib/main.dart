@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:livraria_da_domitilda/views/detail_page.dart';
+
 import 'package:livraria_da_domitilda/views/favorites_books.dart';
 import 'package:livraria_da_domitilda/views/home_screen.dart';
 import 'package:livraria_da_domitilda/views/login_page.dart';
