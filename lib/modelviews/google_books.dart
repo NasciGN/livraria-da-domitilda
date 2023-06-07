@@ -3,7 +3,7 @@ import 'package:livraria_da_domitilda/models/book.dart';
 import 'package:http/http.dart' as http;
 
 String url = 'https://www.googleapis.com/books/v1/volumes?q=';
-String keyPart = ':keyes&key=';
+String keyPart = '&maxResults=40&:keyes&key=';
 String keyApi = 'AIzaSyD6joyGa7KCGsGl1uUWcqJi20M6uRnQBq0';
 
 Future<List<Books>> fetchSearchBooks(String search) async {

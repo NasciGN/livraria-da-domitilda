@@ -36,7 +36,7 @@ class _LogOnFormState extends State<LogOnForm> {
         child: Column(
           children: [
             SizedBox(
-              height: size.height * .33,
+              height: size.height * .37,
               child: Column(children: [
                 TextFormField(
                   controller: _controllerEmail,
@@ -55,7 +55,7 @@ class _LogOnFormState extends State<LogOnForm> {
                   ]),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 TextFormField(
                     obscureText: _isObscure,
@@ -86,7 +86,9 @@ class _LogOnFormState extends State<LogOnForm> {
                           errorText:
                               'The password must have a min of 6 and a mix of 20 characters!')
                     ])),
-                const Spacer(),
+                const SizedBox(
+                  height: 20,
+                ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: defaultpd * 2),
                   child: GestureDetector(
@@ -123,25 +125,23 @@ class _LogOnFormState extends State<LogOnForm> {
                 ),
               ]),
             ),
-            const Spacer(),
             const Text(
               "--------------  OR  --------------",
               style: TextStyle(fontSize: 15),
             ),
-            const Spacer(),
             Container(
               padding: const EdgeInsets.symmetric(vertical: defaultpd),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: size.width * .4,
-                      height: 50,
+                      width: size.width * 0.3,
+                      height: 40,
                       decoration: const BoxDecoration(color: Colors.red),
                     ),
                     Container(
-                      width: size.width * .4,
-                      height: 50,
+                      width: size.width * 0.3,
+                      height: 40,
                       decoration: const BoxDecoration(color: Colors.red),
                     ),
                   ]),

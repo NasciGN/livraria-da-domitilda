@@ -38,7 +38,7 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
           children: [
             SizedBox(
-              height: size.height * .33,
+              height: size.height * .38,
               child: Column(children: [
                 TextFormField(
                   controller: _controllerEmail,
@@ -57,7 +57,7 @@ class _LoginFormState extends State<LoginForm> {
                   ]),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 TextFormField(
                     obscureText: _isObscure,
@@ -97,39 +97,35 @@ class _LoginFormState extends State<LoginForm> {
                         style: TextStyle(color: Colors.black45),
                       )),
                 ),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: defaultpd * 2),
-                  child: GestureDetector(
-                    onTap: () async {
-                      if (_formKey.currentState!.validate()) {
-                        setState(() {
-                          _isLoading = true;
-                        });
-                        await loginUser(context, _controllerEmail.text,
-                            _controllerPassword.text);
+                GestureDetector(
+                  onTap: () async {
+                    if (_formKey.currentState!.validate()) {
+                      setState(() {
+                        _isLoading = true;
+                      });
+                      await loginUser(context, _controllerEmail.text,
+                          _controllerPassword.text);
 
-                        Get.toNamed('/home');
-                        setState(() {
-                          _isLoading = false;
-                        });
-                      }
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 60,
-                      alignment: Alignment.center,
-                      decoration: const BoxDecoration(
-                          color: bgColor,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(defaultpd * 2))),
-                      child: const Text(
-                        'SIGN IN',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 2),
-                      ),
+                      Get.toNamed('/home');
+                      setState(() {
+                        _isLoading = false;
+                      });
+                    }
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 60,
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                        color: bgColor,
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(defaultpd * 2))),
+                    child: const Text(
+                      'SIGN IN',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2),
                     ),
                   ),
                 ),
@@ -139,20 +135,19 @@ class _LoginFormState extends State<LoginForm> {
               "--------------  OR  --------------",
               style: TextStyle(fontSize: 15),
             ),
-            const Spacer(),
             Container(
-              padding: const EdgeInsets.symmetric(vertical: defaultpd),
+              padding: const EdgeInsets.all(defaultpd / 2),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: size.width * .4,
-                      height: 50,
+                      width: size.width * 0.3,
+                      height: 40,
                       decoration: const BoxDecoration(color: Colors.red),
                     ),
                     Container(
-                      width: size.width * .4,
-                      height: 50,
+                      width: size.width * 0.3,
+                      height: 40,
                       decoration: const BoxDecoration(color: Colors.red),
                     ),
                   ]),

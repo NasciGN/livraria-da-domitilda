@@ -9,7 +9,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'modelviews/firebase/firebase_options.dart';
 import 'package:get/get.dart';
 
-void main() async {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -20,7 +21,6 @@ void main() async {
       GetPage(name: '/logon', page: () => const LogOnPage()),
       GetPage(name: '/home', page: () => const HomeScreen()),
       GetPage(name: '/favorite', page: () => const FavoriteBooks()),
-      GetPage(name: '/detail', page: () => const DetailPage()),
     ],
   ));
 }
