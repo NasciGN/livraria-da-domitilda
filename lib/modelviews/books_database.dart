@@ -20,6 +20,24 @@ Future<void> saveFavoriteBook(final bookId) async {
   await db.collection("favorites_books").add(favoriteBook);
 }
 
+Future<void> deleteFavoriteBook(final bookId) async {
+  try {
+    QuerySnapshot querySnapshot = await db
+        .collection("favorites_books")
+        .where("userID", isEqualTo: userId)
+        .get();
+    final documents = querySnapshot.docs;
+    for (final document in documents) {
+      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+      if (data['bookID'] == bookId) {
+        await document.reference.delete();
+      }
+    }
+  } catch (error) {
+    print('Erro ao obter os livros favoritados: $error');
+  }
+}
+
 Future<List<Books>> getFavoriteBooksByUser() async {
   String bookID;
   List<Books> booksLiked = [];

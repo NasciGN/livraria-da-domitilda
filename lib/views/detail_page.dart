@@ -61,8 +61,9 @@ class _DetailPageState extends State<DetailPage> {
                     showSnackBar(context, 'Go to read!',
                         'This book has been added to your library.');
                     saveFavoriteBook('${widget.detailBook.id}');
+                  } else {
+                    deleteFavoriteBook('${widget.detailBook.id}');
                   }
-                  await fetchFavoritesBooks();
                 },
                 child: widget.isFavorite
                     ? const Icon(
