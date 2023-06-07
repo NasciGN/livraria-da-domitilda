@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:livraria_da_domitilda/models/book.dart';
 import 'package:logger/logger.dart';
+
+import 'google_books.dart';
 
 var logger = Logger();
 final db = FirebaseFirestore.instance;
@@ -18,7 +20,9 @@ Future<void> saveFavoriteBook(final bookId) async {
   await db.collection("favorites_books").add(favoriteBook);
 }
 
-Future<List<DocumentSnapshot>> getFavoriteBooksByUser() async {
+Future<List<Books>> getFavoriteBooksByUser() async {
+  String bookID;
+  List<Books> booksLiked = [];
   try {
     QuerySnapshot querySnapshot = await db
         .collection("favorites_books")
@@ -26,9 +30,17 @@ Future<List<DocumentSnapshot>> getFavoriteBooksByUser() async {
         .get();
 
     List<DocumentSnapshot> documents = querySnapshot.docs;
-    return documents;
+    for (DocumentSnapshot document in documents) {
+      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+
+      bookID = data['bookID'];
+      Books? currentBook = await fetchBook(bookID);
+      if (currentBook != null) {
+        booksLiked.add(currentBook);
+      }
+    }
   } catch (error) {
     print('Erro ao obter os livros favoritados: $error');
-    return [];
   }
+  return booksLiked;
 }

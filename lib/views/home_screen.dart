@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:livraria_da_domitilda/models/book.dart';
 import 'package:livraria_da_domitilda/modelviews/google_books.dart';
 import 'package:livraria_da_domitilda/views/components/constants.dart';
 import 'package:livraria_da_domitilda/views/detail_page.dart';
 
-import 'components/bottom_bar.dart';
+import '../modelviews/books_database.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,11 +15,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 List<Books> books = [];
+List<Books> booksLiked = [];
 bool isLoading = false;
+
+Future<List<Books>> fetchFavoritesBooks() async {
+  booksLiked = await getFavoriteBooksByUser();
+  return booksLiked;
+}
 
 Future<List<Books>> fetchBooks(String search) async {
   books = await fetchSearchBooks(search);
-  isLoading = !isLoading;
+  isLoading = true;
   return books;
 }
 
@@ -30,17 +34,118 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    void _onTabTapped(int index) {
+      setState(() {
+        paginaSelecionada = index;
+      });
+    }
+
     return Scaffold(
-      backgroundColor: Colors.white,
-      resizeToAvoidBottomInset: false,
-      body: IndexedStack(
-        index: paginaSelecionada,
-        children: const [
-          SearchPage(),
-          SwapPage(),
-        ],
+        backgroundColor: Colors.white,
+        resizeToAvoidBottomInset: false,
+        body: IndexedStack(
+          index: paginaSelecionada,
+          children: const [
+            SearchPage(),
+            SwapPage(),
+            LibraryPage(),
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: paginaSelecionada,
+          onTap: _onTabTapped,
+          items: const [
+            BottomNavigationBarItem(
+                label: "Home",
+                icon: Icon(
+                  Icons.home,
+                  color: bgColor,
+                )),
+            BottomNavigationBarItem(
+              label: "Swap",
+              icon: Icon(
+                Icons.swap_horizontal_circle,
+                color: bgColor,
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: "My Library",
+              icon: Icon(
+                Icons.bookmarks,
+                color: bgColor,
+              ),
+            ),
+          ],
+        ));
+  }
+}
+
+class LibraryPage extends StatefulWidget {
+  const LibraryPage({super.key});
+
+  @override
+  State<LibraryPage> createState() => _LibraryPageState();
+}
+
+class _LibraryPageState extends State<LibraryPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(defaultpd * 2),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'My Library',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: const Icon(
+                    Icons.account_circle,
+                    size: 40,
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            const Text('Favorites Books'),
+            const SizedBox(
+              height: 30,
+            ),
+            ElevatedButton(
+                onPressed: () async {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  await fetchFavoritesBooks();
+                  setState(() {
+                    isLoading = false;
+                  });
+                  print("LISTA DE FILMES CURTIDOS: ${booksLiked.toList()}");
+                },
+                child: Text('BUSCAR')),
+            Expanded(
+                child: ListView.builder(
+              itemCount: booksLiked.length,
+              padding: const EdgeInsets.symmetric(vertical: defaultpd * 2),
+              itemBuilder: (BuildContext context, int index) {
+                return BookCard(
+                  isFavorite: booksLiked.contains({books[index].id}),
+                  thisbook: booksLiked[index],
+                );
+              },
+            ))
+          ],
+        ),
       ),
-      bottomNavigationBar: MyBottomNavigatorBar(),
     );
   }
 }
@@ -157,6 +262,7 @@ class _SearchPageState extends State<SearchPage> {
                             const EdgeInsets.symmetric(vertical: defaultpd * 2),
                         itemBuilder: (BuildContext context, int index) {
                           return BookCard(
+                            isFavorite: booksLiked.contains({books[index].id}),
                             thisbook: books[index],
                           );
                         }))
@@ -166,10 +272,10 @@ class _SearchPageState extends State<SearchPage> {
 }
 
 class BookCard extends StatelessWidget {
-  const BookCard({super.key, required this.thisbook});
+  const BookCard({super.key, required this.thisbook, required this.isFavorite});
 
   final Books thisbook;
-
+  final bool isFavorite;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -182,6 +288,7 @@ class BookCard extends StatelessWidget {
           MaterialPageRoute(
               builder: (context) => DetailPage(
                     detailBook: thisbook,
+                    isFavorite: isFavorite,
                   )),
         );
       },
@@ -193,6 +300,7 @@ class BookCard extends StatelessWidget {
             width: 140,
             height: 200,
             decoration: BoxDecoration(
+                color: Colors.black12,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.2), // Cor da sombra

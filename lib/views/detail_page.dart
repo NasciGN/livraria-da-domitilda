@@ -6,18 +6,18 @@ import 'package:livraria_da_domitilda/views/components/constants.dart';
 
 import '../models/book.dart';
 import '../modelviews/user_manager.dart';
+import 'home_screen.dart';
 
 class DetailPage extends StatefulWidget {
   Books detailBook;
-  DetailPage({super.key, required this.detailBook});
+  bool isFavorite;
+  DetailPage({super.key, required this.detailBook, required this.isFavorite});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
 }
 
 class _DetailPageState extends State<DetailPage> {
-  bool _isFavorite = false;
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -53,17 +53,18 @@ class _DetailPageState extends State<DetailPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                onTap: () {
+                onTap: () async {
                   setState(() {
-                    _isFavorite = !_isFavorite;
+                    widget.isFavorite = !widget.isFavorite;
                   });
-                  if (_isFavorite) {
+                  if (widget.isFavorite) {
                     showSnackBar(context, 'Go to read!',
                         'This book has been added to your library.');
                     saveFavoriteBook('${widget.detailBook.id}');
                   }
+                  await fetchFavoritesBooks();
                 },
-                child: _isFavorite
+                child: widget.isFavorite
                     ? const Icon(
                         Icons.bookmark,
                         size: defaultpd * 3,
@@ -77,11 +78,11 @@ class _DetailPageState extends State<DetailPage> {
               ),
               GestureDetector(
                   onTap: () {
-                    if (_isFavorite) {
+                    if (widget.isFavorite) {
                       print('Troca habilitada');
                     }
                   },
-                  child: _isFavorite
+                  child: widget.isFavorite
                       ? const Icon(
                           Icons.swap_horizontal_circle,
                           size: defaultpd * 3,
