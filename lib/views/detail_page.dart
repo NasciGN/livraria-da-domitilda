@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:livraria_da_domitilda/modelviews/books_database.dart';
 import 'package:livraria_da_domitilda/modelviews/utils/snack_bar.dart';
 import 'package:livraria_da_domitilda/views/components/bottom_bar.dart';
 import 'package:livraria_da_domitilda/views/components/constants.dart';
@@ -58,6 +59,7 @@ class _DetailPageState extends State<DetailPage> {
                   if (_isFavorite) {
                     showSnackBar(context, 'Go to read!',
                         'This book has been added to your library.');
+                    saveFavoriteBook('1');
                   }
                 },
                 child: _isFavorite
