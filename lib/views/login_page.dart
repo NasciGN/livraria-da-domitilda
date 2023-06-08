@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:livraria_da_domitilda/views/components/constants.dart';
-import 'package:livraria_da_domitilda/views/components/login_form.dart';
+import 'package:livraria_da_domitilda/views/components/forms/login_form.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
