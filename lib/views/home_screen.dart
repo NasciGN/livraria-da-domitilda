@@ -1,11 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:livraria_da_domitilda/models/book.dart';
 import 'package:livraria_da_domitilda/modelviews/google_books.dart';
 import 'package:livraria_da_domitilda/views/components/constants.dart';
-import 'package:livraria_da_domitilda/views/detail_page.dart';
+import 'package:livraria_da_domitilda/views/login_page.dart';
 
 import '../modelviews/books_database.dart';
+import 'components/cards.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -130,9 +133,8 @@ class _LibraryPageState extends State<LibraryPage> {
                   setState(() {
                     isLoading = false;
                   });
-                  print("LISTA DE FILMES CURTIDOS: ${booksLiked.toList()}");
                 },
-                child: Text('BUSCAR')),
+                child: const Text('BUSCAR')),
             Expanded(
                 child: ListView.builder(
               itemCount: booksLiked.length,
@@ -144,74 +146,6 @@ class _LibraryPageState extends State<LibraryPage> {
               },
             ))
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class BookCardList extends StatelessWidget {
-  const BookCardList(
-      {super.key, required this.thisbook, required this.isFavorite});
-
-  final Books thisbook;
-  final bool isFavorite;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onLongPress: () {
-        print('This is a longpress');
-      },
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => DetailPage(
-                    detailBook: thisbook,
-                    isFavorite: isFavorite,
-                  )),
-        );
-      },
-      child: Container(
-        width: double.infinity,
-        height: 130,
-        child: GestureDetector(
-          child: Row(children: [
-            Container(
-              margin: EdgeInsets.all(8),
-              height: 150,
-              width: 80,
-              decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                      image: NetworkImage(thisbook.thumb), fit: BoxFit.cover)),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: defaultpd * 1.4),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    thisbook.title,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    thisbook.publisher,
-                    style: const TextStyle(color: Colors.black54),
-                  ),
-                  const Spacer(),
-                  thisbook.authors.isEmpty
-                      ? const Text(
-                          '-',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      : Text(thisbook.authors.join(', '))
-                ],
-              ),
-            ),
-          ]),
         ),
       ),
     );
@@ -250,9 +184,26 @@ class _SearchPageState extends State<SearchPage> {
       padding: const EdgeInsets.symmetric(
           horizontal: defaultpd * 2, vertical: defaultpd * 3),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const Text(
-          'Home',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Home',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+            ),
+            GestureDetector(
+              onTap: () {
+                FirebaseAuth.instance.signOut().then((_) {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                    (route) => false,
+                  );
+                });
+              },
+              child: const Icon(Icons.logout_rounded),
+            ),
+          ],
         ),
         const SizedBox(
           height: 20,
@@ -277,7 +228,6 @@ class _SearchPageState extends State<SearchPage> {
             setState(() {
               isLoading = false;
             });
-            print("Tamanho da lista de livros: ${books.length}");
           },
         ),
         const SizedBox(
@@ -329,61 +279,14 @@ class _SearchPageState extends State<SearchPage> {
                         padding:
                             const EdgeInsets.symmetric(vertical: defaultpd * 2),
                         itemBuilder: (BuildContext context, int index) {
+                          final bookIds =
+                              booksLiked.map((book) => book.id).toList();
                           return BookCard(
-                            isFavorite: booksLiked.contains({books[index].id}),
+                            isFavorite: bookIds.contains(books[index].id),
                             thisbook: books[index],
                           );
                         }))
       ]),
-    );
-  }
-}
-
-class BookCard extends StatelessWidget {
-  const BookCard({super.key, required this.thisbook, required this.isFavorite});
-
-  final Books thisbook;
-  final bool isFavorite;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onLongPress: () {
-        print('This is a longpress');
-      },
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => DetailPage(
-                    detailBook: thisbook,
-                    isFavorite: isFavorite,
-                  )),
-        );
-      },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            width: 140,
-            height: 200,
-            decoration: BoxDecoration(
-                color: Colors.black12,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2), // Cor da sombra
-                    offset: const Offset(0, 3), // Deslocamento da sombra (x, y)
-                    blurRadius: 4, // Raio de desfoque da sombra
-                    spreadRadius: 2, // Propagação da sombra
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                    image: NetworkImage('${thisbook.thumb}'),
-                    fit: BoxFit.cover)),
-          ),
-        ],
-      ),
     );
   }
 }

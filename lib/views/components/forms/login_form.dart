@@ -1,12 +1,10 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:livraria_da_domitilda/modelviews/utils/snack_bar.dart';
 import 'package:livraria_da_domitilda/views/components/constants.dart';
 import 'package:livraria_da_domitilda/views/logon_page.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-import '../../modelviews/user_manager.dart';
+import '../../../modelviews/user_manager.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -15,19 +13,27 @@ class LoginForm extends StatefulWidget {
   State<LoginForm> createState() => _LoginFormState();
 }
 
-TextEditingController _controllerEmail = TextEditingController();
-TextEditingController _controllerPassword = TextEditingController();
-
-final _formKey = GlobalKey<FormState>();
-bool _validEmail = false;
-bool _validPass = false;
-bool _isObscure = true;
-bool _isLoading = false;
-
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
 
-  void login() {}
+  TextEditingController _controllerEmail = TextEditingController();
+  TextEditingController _controllerPassword = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controllerEmail.dispose();
+    _controllerPassword.dispose();
+  }
+
+  bool _isObscure = true;
+  // ignore: unused_field
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {

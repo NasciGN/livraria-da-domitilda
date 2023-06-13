@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:livraria_da_domitilda/modelviews/books_database.dart';
 import 'package:livraria_da_domitilda/modelviews/utils/snack_bar.dart';
-import 'package:livraria_da_domitilda/views/components/bottom_bar.dart';
 import 'package:livraria_da_domitilda/views/components/constants.dart';
 
 import '../models/book.dart';
-import '../modelviews/user_manager.dart';
-import 'home_screen.dart';
 
+// ignore: must_be_immutable
 class DetailPage extends StatefulWidget {
   Books detailBook;
   bool isFavorite;
@@ -45,7 +43,7 @@ class _DetailPageState extends State<DetailPage> {
                 color: Colors.red,
                 borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
-                  image: NetworkImage('${widget.detailBook.thumb}'),
+                  image: NetworkImage(widget.detailBook.thumb),
                   fit: BoxFit.cover,
                 )),
           ),
@@ -60,9 +58,9 @@ class _DetailPageState extends State<DetailPage> {
                   if (widget.isFavorite) {
                     showSnackBar(context, 'Go to read!',
                         'This book has been added to your library.');
-                    saveFavoriteBook('${widget.detailBook.id}');
+                    saveFavoriteBook(widget.detailBook.id);
                   } else {
-                    deleteFavoriteBook('${widget.detailBook.id}');
+                    deleteFavoriteBook(widget.detailBook.id);
                   }
                 },
                 child: widget.isFavorite

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:livraria_da_domitilda/views/components/constants.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-import '../../modelviews/user_manager.dart';
-import '../login_page.dart';
+import '../../../modelviews/user_manager.dart';
+import '../../login_page.dart';
 
 class LogOnForm extends StatefulWidget {
   const LogOnForm({super.key});

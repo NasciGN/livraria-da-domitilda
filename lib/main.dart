@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:livraria_da_domitilda/views/favorites_books.dart';
 import 'package:livraria_da_domitilda/views/home_screen.dart';
 import 'package:livraria_da_domitilda/views/login_page.dart';
 import 'package:livraria_da_domitilda/views/logon_page.dart';
@@ -20,7 +19,6 @@ Future<void> main() async {
       GetPage(name: '/login', page: () => const LoginPage()),
       GetPage(name: '/logon', page: () => const LogOnPage()),
       GetPage(name: '/home', page: () => const HomeScreen()),
-      GetPage(name: '/favorite', page: () => const FavoriteBooks()),
     ],
   ));
 }

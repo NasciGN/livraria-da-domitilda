@@ -12,7 +12,12 @@
           "package_name": "br.com.receitasvovo.livraria_da_domitilda"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "819901143033-pv112hrn71372lle0irjach6jj2b2ahf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC1V5qwLVaQnniTsboNxJ5vqoS6mZN03Qk"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "819901143033-pv112hrn71372lle0irjach6jj2b2ahf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "819901143033-g89g8cbs87kgff63lapjf7v7b461fq2d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "br.com.receitasvovo.livrariaDaDomitilda"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +48,20 @@
           "package_name": "com.example.livraria"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "819901143033-2ubc2jdhl828m3ljtd71jhnkchrvkert.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.livraria",
+            "certificate_hash": "f6595b16bca816cc67eda04893bcc783350d123f"
+          }
+        },
+        {
+          "client_id": "819901143033-pv112hrn71372lle0irjach6jj2b2ahf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC1V5qwLVaQnniTsboNxJ5vqoS6mZN03Qk"
@@ -39,7 +69,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "819901143033-pv112hrn71372lle0irjach6jj2b2ahf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "819901143033-g89g8cbs87kgff63lapjf7v7b461fq2d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "br.com.receitasvovo.livrariaDaDomitilda"
+              }
+            }
+          ]
         }
       }
     }

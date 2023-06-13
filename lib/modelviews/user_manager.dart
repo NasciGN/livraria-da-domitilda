@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +48,6 @@ Future<void> saveUserRegister(
 
   try {
     await db.collection("users").add(registerUser);
-    print('--------- USUARIO CADASTRADO NO FIRESTORE');
   } catch (e) {
     print('Erro ao cadastrar o usuário: $e');
   }
@@ -54,6 +55,7 @@ Future<void> saveUserRegister(
 
 Future<void> loginUser(context, email, pass) async {
   try {
+    // ignore: unused_local_variable
     final credential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: pass);
     showSnackBar(context, 'Oh Yeah!', "You are logged in, let's go");
