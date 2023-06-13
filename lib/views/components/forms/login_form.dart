@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:livraria_da_domitilda/views/components/constants.dart';
 import 'package:livraria_da_domitilda/views/logon_page.dart';
@@ -144,17 +145,21 @@ class _LoginFormState extends State<LoginForm> {
             Container(
               padding: const EdgeInsets.all(defaultpd / 2),
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
-                      width: size.width * 0.3,
-                      height: 40,
-                      decoration: const BoxDecoration(color: Colors.red),
+                    GestureDetector(
+                      onTap: () {},
+                      child: const FaIcon(
+                        FontAwesomeIcons.google,
+                        size: 30,
+                      ),
                     ),
-                    Container(
-                      width: size.width * 0.3,
-                      height: 40,
-                      decoration: const BoxDecoration(color: Colors.red),
+                    GestureDetector(
+                      onTap: () {},
+                      child: const FaIcon(
+                        FontAwesomeIcons.facebook,
+                        size: 30,
+                      ),
                     ),
                   ]),
             ),
