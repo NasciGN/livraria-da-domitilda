@@ -124,7 +124,7 @@ class _LibraryPageState extends State<LibraryPage> {
             const SizedBox(
               height: 30,
             ),
-            ElevatedButton(
+            /* ElevatedButton(
                 onPressed: () async {
                   setState(() {
                     isLoading = true;
@@ -134,9 +134,10 @@ class _LibraryPageState extends State<LibraryPage> {
                     isLoading = false;
                   });
                 },
-                child: const Text('BUSCAR')),
+                child: const Text('BUSCAR')), */
             Expanded(
                 child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
               itemCount: booksLiked.length,
               itemBuilder: (BuildContext context, int index) {
                 return BookCardList(
@@ -272,6 +273,7 @@ class _SearchPageState extends State<SearchPage> {
                   )))
                 : Expanded(
                     child: GridView.builder(
+                        physics: const BouncingScrollPhysics(),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2, childAspectRatio: 0.75),

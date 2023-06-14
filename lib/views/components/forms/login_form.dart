@@ -113,7 +113,7 @@ class _LoginFormState extends State<LoginForm> {
                       await loginUser(context, _controllerEmail.text,
                           _controllerPassword.text);
 
-                      Get.toNamed('/home');
+                      Get.offAndToNamed('/home');
                       setState(() {
                         _isLoading = false;
                       });
