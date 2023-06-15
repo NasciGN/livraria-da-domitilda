@@ -108,7 +108,7 @@ class BookCardList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    thisbook.title,
+                    truncateText(thisbook.title, 35),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Text(

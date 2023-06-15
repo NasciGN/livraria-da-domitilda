@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import 'package:livraria_da_domitilda/models/book.dart';
 import 'package:livraria_da_domitilda/modelviews/google_books.dart';
 import 'package:livraria_da_domitilda/views/components/constants.dart';
@@ -17,13 +16,13 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+final booksLiked = <Books>[].obs;
 List<Books> books = [];
-List<Books> booksLiked = [];
 bool isLoading = false;
 
-Future<List<Books>> fetchFavoritesBooks() async {
-  booksLiked = await getFavoriteBooksByUser();
-  return booksLiked;
+Future<void> fetchFavoritesBooks() async {
+  List<Books> fetchedBooksLiked = await getFavoriteBooksByUser();
+  booksLiked.assignAll(fetchedBooksLiked);
 }
 
 Future<List<Books>> fetchBooks(String search) async {
@@ -92,6 +91,12 @@ class LibraryPage extends StatefulWidget {
 
 class _LibraryPageState extends State<LibraryPage> {
   @override
+  void initState() {
+    fetchFavoritesBooks();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
@@ -125,27 +130,28 @@ class _LibraryPageState extends State<LibraryPage> {
               height: 30,
             ),
             /* ElevatedButton(
-                onPressed: () async {
-                  setState(() {
-                    isLoading = true;
-                  });
-                  await fetchFavoritesBooks();
-                  setState(() {
-                    isLoading = false;
-                  });
-                },
-                child: const Text('BUSCAR')), */
+               onPressed: () async {
+                 setState(() {
+                   isLoading = true;
+                 });
+                 await fetchFavoritesBooks();
+                 setState(() {
+                   isLoading = false;
+                 });
+               },
+               child: const Text('BUSCAR')), */
             Expanded(
-                child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: booksLiked.length,
-              itemBuilder: (BuildContext context, int index) {
-                return BookCardList(
-                  thisbook: booksLiked[index],
-                  isFavorite: true,
-                );
-              },
-            ))
+              child: Obx(() => ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: booksLiked.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return BookCardList(
+                        thisbook: booksLiked[index],
+                        isFavorite: true,
+                      );
+                    },
+                  )),
+            )
           ],
         ),
       ),
